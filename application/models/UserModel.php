@@ -50,7 +50,7 @@ class UserModel extends CI_Model {
 
     var $column_select = ['id', 'name', 'username', 'email'];
     var $column_order  = [null, 'name', 'username', 'email', null, null];
-    var $column_search = ['name','username','email'];
+    var $column_search = ['name', 'username', 'email'];
     var $with_order    = ['id' => 'desc'];
 
     public function make_query($data = NULL) {
@@ -99,7 +99,7 @@ class UserModel extends CI_Model {
         return $query->num_rows();
     }
 
-    public function get_all_user($status = NULL) {
+    public function get_all_data($status = NULL) {
         $this->db->select($this->column_select);
         $this->db->from($this->table);
         return $this->db->count_all_results();

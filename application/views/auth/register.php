@@ -12,24 +12,24 @@
 						</div>
 						<form class="user" action="<?= base_url('register/store'); ?>" method="POST" >
 							<div class="form-group">
-								<input type="text" name="name" class="form-control form-control-user" id="name" placeholder="Name" value="<?= set_value('name'); ?>">
+								<input type="text" name="name" class="form-control form-control-user" id="name" placeholder="Name" value="<?= set_value('name'); ?>" autocomplete="off" required>
 								<?= form_error('name', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="text" name="username" class="form-control form-control-user" id="username" placeholder="Username" value="<?= set_value('username'); ?>">
+								<input type="text" name="username" class="form-control form-control-user text-lowercase nospace" id="username" placeholder="Username" value="<?= set_value('username'); ?>" autocomplete="off" required>
 								<?= form_error('username', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group">
-								<input type="email" name="email" class="form-control form-control-user" id="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+								<input type="email" name="email" class="form-control form-control-user text-lowercase nospace" id="email" placeholder="Email Address" value="<?= set_value('email'); ?>" autocomplete="off" required>
 								<?= form_error('email', '<small class="text-danger">', '</small>'); ?>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-6 mb-3 mb-sm-0">
-									<input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">
+									<input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password" autocomplete="off" required>
 									<?= form_error('password', '<small class="text-danger">', '</small>'); ?>
 								</div>
 								<div class="col-sm-6">
-									<input type="password" name="repeat_password" class="form-control form-control-user" id="repeat_password" placeholder="Repeat Password">
+									<input type="password" name="repeat_password" class="form-control form-control-user" id="repeat_password" placeholder="Repeat Password" autocomplete="off" required>
 								</div>
 							</div>
 							<button type="submit" class="btn btn-primary btn-user btn-block">

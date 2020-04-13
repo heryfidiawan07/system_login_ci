@@ -16,8 +16,8 @@ class Dashboard extends CI_Controller {
 		$this->load->model('ActionModel');
 
 		$this->auth 	   = $this->AuthModel->auth();
-		$this->permissions = $this->PermissionModel->permission();
-		$this->actions     = $this->ActionModel->action();
+		$this->permissions = $this->PermissionModel->permission($axcept = ['']);
+		$this->actions     = $this->ActionModel->action($axcept = ['']);
 	}
 
 	public function index() {
@@ -51,45 +51,6 @@ class Dashboard extends CI_Controller {
 		$data['title'] = 'Top Navigation';
 		$data['permissions'] = $this->permissions;
 		$this->load->view('top_navigation', $data);
-	}
-
-	public function datatable() {
-		$data['auth']  = $this->auth;
-		$data['title'] = 'Datatable';
-		$data['permissions'] = $this->permissions;
-		$this->load->view('datatable', $data);
-	}
-
-	public function datatables() {
-		$this->load->model('UserModel');
-		$id = $this->input->get('id');
-        $where  = FALSE;
-        if ($id) {
-            $where = ['id' => $id];
-        }
-
-        $users = $this->UserModel->make_datatables($where);
-        $data  = [];
-        $i     = $_POST['start']+1;
-        foreach ($users as $user) {
-            $sub    = [];
-            $sub[]  = $i++;
-            $sub[]  = $user->name;
-            $sub[]  = $user->username;
-            $sub[]  = $user->email;
-            $sub[]  = '<input type="button" class="btn btn-primary btn-sm edit_user" id="'.$user->username.'" data-toggle="modal" data-target="#modal-edit" value="Edit">';
-            $sub[]  = '<input type="button" class="btn btn-danger btn-sm delete_user" id="'.$user->username.'" value="Delete">';
-            $data[] = $sub;
-        }
-
-        $output = [
-            'draw'              => intval($_POST['draw']),
-            'recordsTotal'      => $this->UserModel->get_all_user(),
-            'recordsFiltered'   => $this->UserModel->get_filtered_data($where),
-            'data'              => $data
-        ];
-        // header('Content-Type: application/json');
-        echo json_encode($output);
 	}
 
 }

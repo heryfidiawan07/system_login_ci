@@ -12,3 +12,18 @@
 	padding-right: 20px !important;
     font-size: 16px !important;
 }
+.bold {
+	font-weight: bold !important;
+}
+.font-12 {
+	font-size: 12px !important;
+}
+.font-14 {
+	font-size: 14px !important;
+}
+.font-16 {
+	font-size: 16px !important;
+}
+.italic {
+	font-style: italic !important;
+}

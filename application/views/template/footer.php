@@ -193,6 +193,42 @@
 		        // $('.phone').inputmask("+6299999999999", {"placeholder": ""});
 			});
 			$('.swal2-styled').attr('autofocus',true);
+
+			// INPUT TYPE TO UPPERCASE ======================
+            $('.uppercase').keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+            });
+            // // INPUT TYPE TO LOWERCASE ======================
+            $('.lowercase').keyup(function(){
+                $(this).val($(this).val().toLowerCase());
+            });
+            // // INPUT NO SPACE ===============================
+            $('.nospace').keypress(function(){
+                $(this).val($(this).val().trim());
+            });
+            // ONLY YEAR =======================================
+            $('.year').on('keypress keyup blur', function (event) {
+               $(this).val($(this).val().replace(/[^\d].+/, ""));
+                if ((event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                }
+            });
+            // NUMBER ONLY =====================================
+            $('.number').on('keypress keyup blur', function (event) {
+               $(this).val($(this).val().replace(/[^\d].+/, ""));
+                if ((event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                }
+            });
+
+            // $('.plate_number').on('keypress', function (event) {
+            //     var regex = new RegExp("^[a-zA-Z0-9]+$");
+            //     var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            //     if (!regex.test(key)) {
+            //        event.preventDefault();
+            //        return false;
+            //     }
+            // });
     	</script>
 	</body>
 </html>

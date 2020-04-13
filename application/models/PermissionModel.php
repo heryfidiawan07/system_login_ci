@@ -2,9 +2,9 @@
 
 class PermissionModel extends CI_Model {
 
-	public function permission() {
+	public function permission($except = FALSE) {
 		
-		$this->db->select(['users.id', 'users.name as user_name', 'users.username', 'users.email', 'roles.name as role_name', 'roles.description as role_desc', 'menus.id as id_menu', 'menus.name as menu_name', 'menus.controller as menu_controller', 'parent_id', 'has_child', 'order_key']);
+		$this->db->select(['users.id', 'users.name as user_name', 'users.username', 'users.email', 'roles.name as role_name', 'roles.description as role_desc', 'menus.id as id_menu', 'menus.name as menu_name', 'menus.controller as menu_controller', 'sub', 'order_key']);
 		$this->db->from('users');
 		$this->db->join('user_role', 'user_role.user_id = users.id');
 		$this->db->join('roles', 'roles.id = user_role.role_id');
@@ -32,15 +32,19 @@ class PermissionModel extends CI_Model {
 		// ]
 
 		$permission_menu = [];
-		foreach ($permissions as $permission) {
-			$permission_menu[] = $permission->menu_controller;
-		}
 
 		$permission_menu[] = '';
 		$permission_menu[] = 'dashboard';
 
-		// Default Demo
-		$permission_menu[] .= 'user';
+		foreach ($permissions as $permission) {
+			$permission_menu[] = $permission->menu_controller;
+		}
+
+		if ($except) {
+			foreach ($except as $xpt) {
+				$permission_menu[] = $xpt;
+			}
+		}
 		
 		if ( in_array($this->uri->segment(1), $permission_menu) ) {
 			return $permissions;
