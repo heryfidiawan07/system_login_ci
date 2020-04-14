@@ -14,7 +14,9 @@ class ActionModel extends CI_Model {
 		$this->db->where(['users.email' => $this->session->userdata('email')]);
 		$this->db->where(['menus.controller' => $this->uri->segment(1)]);
 		$actions = $this->db->get()->result();
+		// echo json_encode($actions);die;
 		// return $actions;
+
 		// Get Role Permission Menu
 
 		// Example Value

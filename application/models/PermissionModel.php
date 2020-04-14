@@ -11,10 +11,12 @@ class PermissionModel extends CI_Model {
 		$this->db->join('role_menu', 'role_menu.role_id = roles.id');
 		$this->db->join('menus', 'menus.id = role_menu.menu_id');
 		$this->db->where(['users.email' => $this->session->userdata('email')]);
-		$this->db->group_by('role_menu.menu_id');//authorize menu
+		// $this->db->group_by('sub');//authorize menu
 		$this->db->order_by('menus.order_key');
 		$permissions = $this->db->get()->result();
+		// echo json_encode($permissions);die;
 		// return $permissions;
+		
 		// Get Role Permission Menu
 
 		// Example Value
