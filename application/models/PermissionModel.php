@@ -4,7 +4,7 @@ class PermissionModel extends CI_Model {
 
 	public function permission($except = FALSE) {
 		
-		$this->db->select(['users.id', 'users.name as user_name', 'users.username', 'users.email', 'roles.name as role_name', 'roles.description as role_desc', 'menus.id as id_menu', 'menus.name as menu_name', 'menus.controller as menu_controller', 'sub', 'order_key']);
+		$this->db->select(['users.id', 'users.name as user_name', 'users.username', 'users.email', 'roles.name as role_name', 'roles.description as role_desc', 'menus.id as id_menu', 'menus.name as menu_name', 'menus.controller as menu_controller', 'sub', 'order_key', 'type']);
 		$this->db->from('users');
 		$this->db->join('user_role', 'user_role.user_id = users.id');
 		$this->db->join('roles', 'roles.id = user_role.role_id');
@@ -48,7 +48,15 @@ class PermissionModel extends CI_Model {
 			}
 		}
 		
-		if ( in_array($this->uri->segment(1), $permission_menu) ) {
+		$segment = '';
+
+		if ($this->uri->segment(1) === 'api') {
+			$segment = 2;
+		}else {
+			$segment = 1;
+		}
+		
+		if ( in_array($this->uri->segment($segment), $permission_menu) ) {
 			return $permissions;
 		}else {
 			echo 'Opss... Permission denied !';die;

@@ -65,7 +65,7 @@
                                 <?php if ($action->menu_id == $menu->id): ?>
                                      <div class="form-check form-check-inline">
                                         <input name="<?= $menu->id; ?>_actions[]" class="form-check-input actions action_<?= $menu->id; ?>" data-menu="<?= $menu->id; ?>" type="checkbox" value="<?= $action->name; ?>" disabled>
-                                        <label class="form-check-label italic"><?= $action->name; ?></label>
+                                        <label class="form-check-label italic"><?= $action->alias; ?></label>
                                     </div>
                                 <?php endif ?>
                             <?php endforeach ?>
@@ -116,7 +116,7 @@
                                 <?php if ($action->menu_id == $menu->id): ?>
                                      <div class="form-check form-check-inline">
                                         <input name="<?= $menu->id; ?>_actions_edit[]" class="form-check-input actions action_edit_<?= $menu->id; ?>" data-menu="<?= $menu->id; ?>" id="action_<?= $action->name; ?>_<?= $menu->id; ?>" type="checkbox" value="<?= $action->name; ?>" disabled>
-                                        <label class="form-check-label italic"><?= $action->name; ?></label>
+                                        <label class="form-check-label italic"><?= $action->alias; ?></label>
                                     </div>
                                 <?php endif ?>
                             <?php endforeach ?>
