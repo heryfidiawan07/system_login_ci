@@ -35,7 +35,9 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function home() {
+		$this->load->model('User');
 		$this->load->model('UserModel');
+
 		$data['auth'] 		 = $this->auth;
 		$data['title'] 		 = 'Home Page';
 		$data['permissions'] = $this->permissions;
@@ -43,6 +45,10 @@ class Dashboard extends CI_Controller {
 		$data['single'] 	 = $this->UserModel->find(1);
 		$data['members']  	 = $this->UserModel->where(['id >' => 0])->result();
 		$data['single_data'] = $this->UserModel->where(['id >' => 0])->row();
+
+		$data['eloquentUsers'] = User::with('user_role')->get();
+		$data['eloquentUsersFind'] = User::find(1);
+
 		$this->load->view('home', $data);
 	}
 

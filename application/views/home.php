@@ -22,6 +22,21 @@
 			<hr>
 			<h1>WHERE ROW</h1>
 			<h3><?= $single_data->name ?></h3>
+			<hr>
+			<h1>ELOQUENT ORM</h1>
+			<?php foreach ($eloquentUsers as $eloquentUser): ?>
+				<h3><?= $eloquentUser->name; ?></h3><br>
+				<?php foreach ($eloquentUser->user_role as $user_role): ?>
+					<h5>==>> <?= $user_role->role->name ?></h5><br>
+				<?php endforeach ?>
+			<?php endforeach ?>
+			<hr>
+			<h1>ELOQUENT ORM GET USER ROLE</h1>
+			<h3><?= $eloquentUsersFind->name ?></h3>
+			<br>
+			<?php foreach ($eloquentUsersFind->user_role as $user_role): ?>
+				<h5><?= $user_role->role->name; ?></h5><br>
+			<?php endforeach ?>
 		</div>
 	</section>
 </div>
