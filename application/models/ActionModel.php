@@ -4,19 +4,16 @@ class ActionModel extends CI_Model {
 
 	public function action($except = FALSE) {
 
-		$this->db->select(['users.id', 'users.name as user_name', 'users.username', 'users.email', 'menus.name as menu_name', 'menus.controller as menu_controller', 'role_menu_action.action']);
+		$this->db->select(['users.id', 'users.name as user_name', 'users.username', 'users.email', 'menus.name as menu_name', 'menus.controller as menu_controller', 'actions.name as action']);
 		$this->db->from('users');
 		$this->db->join('user_role', 'user_role.user_id = users.id');
 		$this->db->join('roles', 'roles.id = user_role.role_id');
 		$this->db->join('role_menu', 'role_menu.role_id = roles.id');
 		$this->db->join('menus', 'menus.id = role_menu.menu_id');
 		$this->db->join('role_menu_action', 'role_menu_action.menu_id = role_menu.menu_id');
+		$this->db->join('actions', 'actions.id = role_menu_action.action_id');
 		$this->db->where(['users.email' => $this->session->userdata('email')]);
-		if ($this->uri->segment(1) == 'api') {
-			$this->db->where(['menus.controller' => $this->uri->segment(2)]);
-		}else {
-			$this->db->where(['menus.controller' => $this->uri->segment(1)]);
-		}
+		$this->db->where(['menus.controller' => $this->uri->segment(1)]);
 		$actions = $this->db->get()->result();
 		// echo json_encode($actions);die;
 		// return $actions;
@@ -46,31 +43,18 @@ class ActionModel extends CI_Model {
 				$action_menu[] = $xpt;
 			}
 		}
-
-		if ($this->uri->segment(1) == 'api') {
-			// echo json_encode($action_menu);die;
-			$requestType = $_SERVER['REQUEST_METHOD'];
-			if ($requestType == 'GET') {
-				// if ( in_array('index_get', $action_menu) ) {
-				// 	return true;
-				// }else {
-				// 	return false;
-				// }
-				if ( in_array('index_get', $action_menu) ) return true; return false;
-			}
+		
+		if ($this->uri->segment(2) == false || $this->uri->segment(2) == 'index') {
+			return false;
 		}else {
-			if ($this->uri->segment(2) == false || $this->uri->segment(2) == 'index') {
-				return false;
+			if ( in_array($this->uri->segment(2), $action_menu) ) {
+				// return $actions;
+				return true;
 			}else {
-				if ( in_array($this->uri->segment(2), $action_menu) ) {
-					// return $actions;
-					return true;
-				}else {
-					// echo 'Opss... Permission denied action !';die;
-					return false;
-				}
-				// Fill in the name column in the action table must be the same as function_name
+				// echo 'Opss... Permission denied action !';die;
+				return false;
 			}
+			// Fill in the name column in the action table must be the same as function_name
 		}
 
 	}

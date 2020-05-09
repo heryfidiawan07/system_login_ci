@@ -90,7 +90,7 @@ class Role extends CI_Controller {
 			        	}
 			        	for ($i=0; $i < count($menus_id) ; $i++) { 
 			        		for ($a=0; $a < count($actions[$i]); $a++) { 
-			        			$this->db->insert('role_menu_action', ['role_id' => $role_id, 'menu_id' => $menus_id[$i], 'action' => $actions[$i][$a]]);
+			        			$this->db->insert('role_menu_action', ['role_id' => $role_id, 'menu_id' => $menus_id[$i], 'action_id' => $actions[$i][$a]]);
 			        		}
 			        	}
 					}
@@ -157,7 +157,7 @@ class Role extends CI_Controller {
 						        	}
 						        	for ($i=0; $i < count($menus_id) ; $i++) { 
 						        		for ($a=0; $a < count($actions[$i]); $a++) { 
-						        			$this->db->insert('role_menu_action', ['role_id' => $role->id, 'menu_id' => $menus_id[$i], 'action' => $actions[$i][$a]]);
+						        			$this->db->insert('role_menu_action', ['role_id' => $role->id, 'menu_id' => $menus_id[$i], 'action_id' => $actions[$i][$a]]);
 						        		}
 						        	}
 								}else {
