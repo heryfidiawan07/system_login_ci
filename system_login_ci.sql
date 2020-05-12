@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: May 04, 2020 at 11:30 PM
--- Server version: 5.7.29-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.3
+-- Host: 127.0.0.1
+-- Generation Time: May 09, 2020 at 07:37 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -60,20 +62,19 @@ CREATE TABLE `menus` (
   `name` varchar(100) NOT NULL,
   `controller` varchar(100) NOT NULL,
   `sub` int(2) NOT NULL,
-  `order_key` int(11) NOT NULL,
-  `type` varchar(10) DEFAULT NULL
+  `order_key` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `menus`
 --
 
-INSERT INTO `menus` (`id`, `name`, `controller`, `sub`, `order_key`, `type`) VALUES
-(1, 'User', 'user', 1, 1, NULL),
-(2, 'Role', 'role', 1, 2, NULL),
-(3, 'Menu 3', 'menu3', 2, 1, NULL),
-(4, 'Menu 4', 'menu4', 2, 2, NULL),
-(5, 'Test Api', 'test', 0, 1, 'api');
+INSERT INTO `menus` (`id`, `name`, `controller`, `sub`, `order_key`) VALUES
+(1, 'User', 'user', 1, 1),
+(2, 'Role', 'role', 1, 2),
+(3, 'Menu 3', 'menu3', 2, 1),
+(4, 'Menu 4', 'menu4', 2, 2),
+(5, 'Test Api', 'test', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +94,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 (1, 'All Menu / Super Admin', 'Desc All Menu / Super Admin'),
-(2, 'Only User &amp;amp;amp;amp;amp; Role', 'Desc Only User &amp;amp;amp;amp;amp; Role');
+(2, 'Only User &amp;amp;amp;amp;amp; Role', 'Desc Only User &amp;amp;amp;amp;amp; Role'),
+(4, 'Role Test', 'Desc role test');
 
 -- --------------------------------------------------------
 
@@ -118,7 +120,10 @@ INSERT INTO `role_menu` (`id`, `role_id`, `menu_id`) VALUES
 (34, 1, 2),
 (35, 1, 3),
 (36, 1, 4),
-(37, 1, 5);
+(37, 1, 5),
+(41, 4, 1),
+(42, 4, 2),
+(43, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -130,29 +135,34 @@ CREATE TABLE `role_menu_action` (
   `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
-  `action` varchar(50) NOT NULL
+  `action_id` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `role_menu_action`
 --
 
-INSERT INTO `role_menu_action` (`id`, `role_id`, `menu_id`, `action`) VALUES
-(61, 2, 1, 'store'),
-(62, 2, 1, 'update'),
-(63, 2, 1, 'destroy'),
-(64, 2, 2, 'store'),
-(65, 2, 2, 'update'),
-(66, 2, 2, 'destroy'),
-(75, 1, 1, 'store'),
-(76, 1, 1, 'update'),
-(77, 1, 1, 'destroy'),
-(78, 1, 2, 'store'),
-(79, 1, 2, 'update'),
-(80, 1, 2, 'destroy'),
-(81, 1, 3, 'test'),
-(82, 1, 4, 'empat'),
-(83, 1, 5, 'index_get');
+INSERT INTO `role_menu_action` (`id`, `role_id`, `menu_id`, `action_id`) VALUES
+(61, 2, 1, 1),
+(62, 2, 1, 2),
+(63, 2, 1, 3),
+(64, 2, 2, 4),
+(65, 2, 2, 5),
+(66, 2, 2, 6),
+(75, 1, 1, 1),
+(76, 1, 1, 2),
+(77, 1, 1, 3),
+(78, 1, 2, 4),
+(79, 1, 2, 5),
+(80, 1, 2, 6),
+(81, 1, 3, 7),
+(82, 1, 4, 8),
+(83, 1, 5, 9),
+(91, 4, 1, 1),
+(92, 4, 1, 2),
+(93, 4, 2, 4),
+(94, 4, 2, 6),
+(95, 4, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -258,36 +268,44 @@ ALTER TABLE `user_role`
 --
 ALTER TABLE `actions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `role_menu`
 --
 ALTER TABLE `role_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
 --
 -- AUTO_INCREMENT for table `role_menu_action`
 --
 ALTER TABLE `role_menu_action`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

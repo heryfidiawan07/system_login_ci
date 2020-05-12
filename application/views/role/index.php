@@ -64,7 +64,7 @@
                             <?php foreach ($actions as $action): ?>
                                 <?php if ($action->menu_id == $menu->id): ?>
                                      <div class="form-check form-check-inline">
-                                        <input name="<?= $menu->id; ?>_actions[]" class="form-check-input actions action_<?= $menu->id; ?>" data-menu="<?= $menu->id; ?>" type="checkbox" value="<?= $action->name; ?>" disabled>
+                                        <input name="<?= $menu->id; ?>_actions[]" class="form-check-input actions action_<?= $menu->id; ?>" data-menu="<?= $menu->id; ?>" type="checkbox" value="<?= $action->id; ?>" disabled>
                                         <label class="form-check-label italic"><?= $action->alias; ?></label>
                                     </div>
                                 <?php endif ?>
@@ -115,7 +115,7 @@
                             <?php foreach ($actions as $action): ?>
                                 <?php if ($action->menu_id == $menu->id): ?>
                                      <div class="form-check form-check-inline">
-                                        <input name="<?= $menu->id; ?>_actions_edit[]" class="form-check-input actions action_edit_<?= $menu->id; ?>" data-menu="<?= $menu->id; ?>" id="action_<?= $action->name; ?>_<?= $menu->id; ?>" type="checkbox" value="<?= $action->name; ?>" disabled>
+                                        <input name="<?= $menu->id; ?>_actions_edit[]" class="form-check-input actions action_edit_<?= $menu->id; ?>" data-menu="<?= $menu->id; ?>" id="action_<?= $action->id; ?>_<?= $menu->id; ?>" type="checkbox" value="<?= $action->id; ?>" disabled>
                                         <label class="form-check-label italic"><?= $action->alias; ?></label>
                                     </div>
                                 <?php endif ?>
@@ -248,9 +248,9 @@ $(document).ready(function () {
                 });
                 $.each(data.role_menu_action, function(index, role_menu_action) {
                     // console.log(role_menu_action);
-                    $('#action_'+role_menu_action.action+'_'+role_menu_action.menu_id).prop('checked',true);
+                    $('#action_'+role_menu_action.action_id+'_'+role_menu_action.menu_id).prop('checked',true);
                     $('.action_edit_'+role_menu_action.menu_id).prop('disabled',false);
-                    $('#action_'+role_menu_action.action+'_'+role_menu_action.menu_id).prop('checked',true);
+                    // $('#action_'+role_menu_action.action+'_'+role_menu_action.menu_id).prop('checked',true);
                 });
 
                 $('#form_update').attr('action', base_url+'role/update/'+data.role.id);
