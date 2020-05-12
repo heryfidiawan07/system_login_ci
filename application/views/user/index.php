@@ -62,7 +62,7 @@
                         <input type="password" name="password" id="password" class="form-control form-control-sm lowercase nospace" placeholder="Password" required autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label>Menu</label>
+                        <label>Role</label>
                         <?php foreach ($roles as $role): ?>
                             <div class="form-check">
                                 <input name="roles[]" class="form-check-input roles" type="checkbox" value="<?= $role->id; ?>" >
@@ -111,7 +111,7 @@
                         <input type="password" name="password_edit" id="password_edit" class="form-control form-control-sm lowercase" required autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label>Menu</label>
+                        <label>Role</label>
                         <?php foreach ($roles as $role): ?>
                             <div class="form-check">
                                 <input name="roles_edit[]" class="form-check-input roles" type="checkbox" value="<?= $role->id; ?>" id="<?= $role->id; ?>">
