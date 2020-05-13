@@ -48,10 +48,6 @@ class PermissionModel extends CI_Model {
 			}
 		}
 
-		if ($this->uri->segment(1) === 'api') {
-			echo 'Opss... Permission denied API !';die;
-		}
-		
 		if ( in_array($this->uri->segment(1), $permission_menu) ) {
 			return $permissions;
 		}else {

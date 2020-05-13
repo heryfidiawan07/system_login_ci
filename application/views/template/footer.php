@@ -4,6 +4,13 @@
 				        <span class="spinner"><span></span></span>
 				    </div>
 				</div>
+
+				<div id="preloader">
+				    <div class="cv-loader">
+				        <span class="loader"><span></span></span>
+				        <span class="ml-2">Loading ...</span>
+				    </div>
+				</div>
 				
 				<input type="hidden" id="base_url" value="<?= base_url(); ?>">
 
@@ -239,6 +246,11 @@
 
 
 			// $("#overlay").fadeIn(300);
+			// $("#preloader").fadeIn(300);
+
+			$(document).ready(function() {
+				$("#preloader").fadeOut(300);
+			});
 
 			jQuery(function($){
 			    // $(document).ajaxSend(function() {
