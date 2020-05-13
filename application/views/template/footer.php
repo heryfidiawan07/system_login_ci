@@ -1,3 +1,17 @@
+				
+				<div id="overlay">
+				    <div class="cv-spinner">
+				        <span class="spinner"><span></span></span>
+				    </div>
+				</div>
+
+				<div id="preloader">
+				    <div class="cv-loader">
+				        <span class="loader"><span></span></span>
+				        <span class="ml-2">Loading ...</span>
+				    </div>
+				</div>
+				
 				<input type="hidden" id="base_url" value="<?= base_url(); ?>">
 
 				<footer class="main-footer">
@@ -229,6 +243,46 @@
             //        return false;
             //     }
             // });
+
+
+			// $("#overlay").fadeIn(300);
+			// $("#preloader").fadeIn(300);
+
+			$(document).ready(function() {
+				$("#preloader").fadeOut(300);
+			});
+
+			jQuery(function($){
+			    // $(document).ajaxSend(function() {
+			    //     $("#overlay").fadeIn(300);
+			    // });
+
+			    $(document).on({
+				    ajaxStart: function() {
+				    	$("#overlay").fadeIn(300);
+				    },
+				    ajaxStop: function() {
+				    	$("#overlay").fadeOut(300);
+				    }
+				});
+			        
+			    $('form').submit(function(){
+			        $.ajax({
+			            type: 'POST',
+			            success: function(data){
+			                console.log(data);
+			            }
+			        }).done(function() {
+			            setTimeout(function(){
+			                $("#overlay").fadeOut(300);
+			            },200);
+			        });
+			    }); 
+			});
+
+			// $(window).load(function() {
+			//     $("#overlay").fadeOut(300);
+			// });
     	</script>
 	</body>
 </html>
