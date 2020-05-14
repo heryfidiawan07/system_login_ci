@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2020 at 07:37 PM
+-- Generation Time: May 14, 2020 at 08:10 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.1.33
 
@@ -61,7 +61,7 @@ CREATE TABLE `menus` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `controller` varchar(100) NOT NULL,
-  `sub` int(2) NOT NULL,
+  `parent_id` int(2) NOT NULL,
   `order_key` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -69,12 +69,31 @@ CREATE TABLE `menus` (
 -- Dumping data for table `menus`
 --
 
-INSERT INTO `menus` (`id`, `name`, `controller`, `sub`, `order_key`) VALUES
+INSERT INTO `menus` (`id`, `name`, `controller`, `parent_id`, `order_key`) VALUES
 (1, 'User', 'user', 1, 1),
 (2, 'Role', 'role', 1, 2),
 (3, 'Menu 3', 'menu3', 2, 1),
-(4, 'Menu 4', 'menu4', 2, 2),
-(5, 'Test Api', 'test', 0, 1);
+(4, 'Menu 4', 'menu4', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parents`
+--
+
+CREATE TABLE `parents` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `parents`
+--
+
+INSERT INTO `parents` (`id`, `name`) VALUES
+(1, 'User & Role'),
+(2, 'Parent 2'),
+(3, 'Parent 3');
 
 -- --------------------------------------------------------
 
@@ -227,6 +246,12 @@ ALTER TABLE `menus`
   ADD UNIQUE KEY `slug` (`controller`);
 
 --
+-- Indexes for table `parents`
+--
+ALTER TABLE `parents`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -274,6 +299,12 @@ ALTER TABLE `actions`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `parents`
+--
+ALTER TABLE `parents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roles`
