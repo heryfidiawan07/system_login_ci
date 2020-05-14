@@ -43,38 +43,31 @@
             </li>
 
             <?php if ($permissions): ?>
+                
                 <li class="menu-header">With Role</li>
+
+                <?php foreach ($permissions as $permission): ?>
+                    <?php $parents[$permission->parent_name] = $permission->parent_name; ?>
+                <?php endforeach ?>
+
+                <?php foreach ($parents as $parent): ?>
+                    <li class="dropdown">
+                        <a class="nav-link has-dropdown" data-toggle="dropdown" href="#">
+                            <i class="fas fa-columns"></i> <span><?= $parent ?></span>
+                        </a>
+                        <?php foreach ($permissions as $permission): ?>
+                            <ul class="dropdown-menu">
+                                <?php if ($permission->parent_name == $parent): ?>
+                                    <li>
+                                        <a class="nav-link" href="<?= base_url().$permission->menu_controller; ?>"><?= $permission->menu_name; ?></a>
+                                    </li>
+                                <?php endif ?>
+                            </ul>
+                        <?php endforeach ?>
+                    </li>
+                <?php endforeach ?>
+
             <?php endif ?>
-
-            <li class="dropdown">
-                <a class="nav-link has-dropdown" data-toggle="dropdown" href="#">
-                    <i class="fas fa-columns"></i> <span>User & Role</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <?php foreach ($permissions as $permission): ?>
-                        <?php if ($permission->sub == 1): ?>
-                            <li>
-                                <a class="nav-link" href="<?= base_url().$permission->menu_controller; ?>"><?= $permission->menu_name; ?></a>
-                            </li>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a class="nav-link has-dropdown" data-toggle="dropdown" href="#">
-                    <i class="fas fa-columns"></i> <span>Sub 2</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <?php foreach ($permissions as $permission): ?>
-                        <?php if ($permission->sub == 2): ?>
-                            <li>
-                                <a class="nav-link" href="<?= base_url().$permission->menu_controller; ?>"><?= $permission->menu_name; ?></a>
-                            </li>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </ul>
-            </li>
 
         </ul>
 
